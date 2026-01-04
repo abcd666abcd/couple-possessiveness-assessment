@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .debug-info { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { color: red; }
+        .success { color: green; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 JavaScript调试页面</h1>
+    
+    <div class="debug-info">
+        <h3>📊 系统状态</h3>
+        <div id="systemStatus">检查中...</div>
+    </div>
+    
+    <div class="debug-info">
+        <h3>📁 文件加载状态</h3>
+        <div id="fileStatus">检查中...</div>
+    </div>
+    
+    <div class="debug-info">
+        <h3>🎯 题目数据</h3>
+        <div id="questionStatus">检查中...</div>
+    </div>
+    
+    <div class="debug-info">
+        <h3>🔧 功能测试</h3>
+        <button onclick="testBasicFunction()">测试基础功能</button>
+        <button onclick="testQuestions()">测试题目数据</button>
+        <button onclick="testLocalStorage()">测试本地存储</button>
+        <div id="testResults"></div>
+    </div>
+    
+    <script>
+        // 基础检查
+        function checkSystem() {
+            const status = document.getElementById('systemStatus');
+            const results = [];
+            
+            // 检查浏览器支持
+            results.push(`✅ 浏览器: ${navigator.userAgent.substring(0, 50)}...`);
+            results.push(`✅ JavaScript: ${typeof window !== 'undefined' ? '支持' : '不支持'}`);
+            results.push(`✅ localStorage: ${typeof Storage !== 'undefined' ? '支持' : '不支持'}`);
+            results.push(`✅ DOM: ${typeof document !== 'undefined' ? '支持' : '不支持'}`);
+            
+            status.innerHTML = results.join('<br>');
+        }
+        
+        // 检查文件加载
+        function checkFiles() {
+            const status = document.getElementById('fileStatus');
+            const results = [];
+            
+            // 检查CSS文件
+            const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+            results.push(`📄 CSS文件: ${cssLinks.length} 个`);
+            cssLinks.forEach((link, i) => {
+                results.push(`  - ${i+1}: ${link.href}`);
+            });
+            
+            // 检查JS文件
+            const jsScripts = document.querySelectorAll('script[src]');
+            results.push(`📄 JS文件: ${jsScripts.length} 个`);
+            jsScripts.forEach((script, i) => {
+                results.push(`  - ${i+1}: ${script.src}`);
+            });
+            
+            status.innerHTML = results.join('<br>');
+        }
+        
+        // 检查题目数据
+        function checkQuestions() {
+            const status = document.getElementById('questionStatus');
+            
+            try {
+                // 动态加载主JS文件来测试
+                const script = document.createElement('script');
+                script.src = 'js/main.js';
+                script.onload = function() {
+                    const results = [];
+                    results.push(`✅ JS文件加载成功`);
+                    
+                    // 检查变量
+                    if (typeof QUESTIONS !== 'undefined') {
+                        results.push(`✅ QUESTIONS变量存在，共 ${QUESTIONS.length} 道题`);
+                        
+                        // 检查题目结构
+                        const sampleQuestion = QUESTIONS[0];
+                        results.push(`✅ 题目结构: id=${sampleQuestion.id}, text=${sampleQuestion.text.substring(0, 20)}..., dimension=${sampleQuestion.dimension}`);
+                        
+                        // 检查维度分布
+                        const dimensions = {};
+                        QUESTIONS.forEach(q => {
+                            dimensions[q.dimension] = (dimensions[q.dimension] || 0) + 1;
+                        });
+                        results.push(`📊 维度分布:`);
+                        Object.keys(dimensions).forEach(dim => {
+                            results.push(`  - ${dim}: ${dimensions[dim]} 题`);
+                        });
+                        
+                        // 测试随机选择
+                        if (typeof selectRandomQuestions === 'function') {
+                            const selected = selectRandomQuestions();
+                            results.push(`✅ 随机选择函数正常，选择了 ${selected.length} 道题`);
+                        } else {
+                            results.push(`❌ selectRandomQuestions函数不存在`);
+                        }
+                        
+                    } else {
+                        results.push(`❌ QUESTIONS变量不存在`);
+                    }
+                    
+                    if (typeof initTestPage === 'function') {
+                        results.push(`✅ initTestPage函数存在`);
+                    } else {
+                        results.push(`❌ initTestPage函数不存在`);
+                    }
+                    
+                    status.innerHTML = results.join('<br>');
+                };
+                script.onerror = function() {
+                    status.innerHTML = `❌ JS文件加载失败`;
+                };
+                document.head.appendChild(script);
+                
+            } catch (error) {
+                status.innerHTML = `❌ 错误: ${error.message}`;
+            }
+        }
+        
+        // 测试基础功能
+        function testBasicFunction() {
+            const results = document.getElementById('testResults');
+            const testResults = [];
+            
+            try {
+                // 测试DOM操作
+                const testDiv = document.createElement('div');
+                testDiv.innerHTML = '测试DOM操作';
+                document.body.appendChild(testDiv);
+                testResults.push(`✅ DOM操作正常`);
+                document.body.removeChild(testDiv);
+                
+                // 测试localStorage
+                localStorage.setItem('test', 'value');
+                const stored = localStorage.getItem('test');
+                localStorage.removeItem('test');
+                testResults.push(`✅ localStorage正常，测试值: ${stored}`);
+                
+                // 测试事件监听
+                let eventFired = false;
+                const testButton = document.createElement('button');
+                testButton.textContent = '测试事件';
+                testButton.addEventListener('click', () => {
+                    eventFired = true;
+                });
+                document.body.appendChild(testButton);
+                testButton.click();
+                document.body.removeChild(testButton);
+                testResults.push(`✅ 事件监听正常，事件触发: ${eventFired}`);
+                
+                results.innerHTML = `<div class="success">${testResults.join('<br>')}</div>`;
+                
+            } catch (error) {
+                results.innerHTML = `<div class="error">❌ 基础功能测试失败: ${error.message}</div>`;
+            }
+        }
+        
+        // 测试题目数据
+        function testQuestions() {
+            const results = document.getElementById('testResults');
+            if (typeof QUESTIONS === 'undefined') {
+                results.innerHTML = `<div class="error">❌ 请先加载js/main.js文件</div>`;
+                return;
+            }
+            
+            try {
+                const testResults = [];
+                testResults.push(`📊 题目总数: ${QUESTIONS.length}`);
+                
+                // 检查数据结构
+                const firstQuestion = QUESTIONS[0];
+                testResults.push(`📋 题目示例: ${firstQuestion.text.substring(0, 30)}...`);
+                testResults.push(`📋 维度: ${firstQuestion.dimension}`);
+                testResults.push(`📋 类型: ${firstQuestion.type}`);
+                
+                // 检查随机选择
+                if (typeof selectRandomQuestions === 'function') {
+                    const selected = selectRandomQuestions();
+                    testResults.push(`🎯 随机选择结果: ${selected.length} 道题`);
+                    
+                    // 检查维度分布
+                    const dimCount = {};
+                    selected.forEach(q => {
+                        dimCount[q.dimension] = (dimCount[q.dimension] || 0) + 1;
+                    });
+                    Object.keys(dimCount).forEach(dim => {
+                        testResults.push(`  - ${dim}: ${dimCount[dim]} 题`);
+                    });
+                }
+                
+                results.innerHTML = `<div class="success">${testResults.join('<br>')}</div>`;
+                
+            } catch (error) {
+                results.innerHTML = `<div class="error">❌ 题目数据测试失败: ${error.message}</div>`;
+            }
+        }
+        
+        // 测试本地存储
+        function testLocalStorage() {
+            const results = document.getElementById('testResults');
+            
+            try {
+                const testResults = [];
+                
+                // 测试写入
+                const testData = { test: 'value', timestamp: Date.now() };
+                localStorage.setItem('rpiDebugTest', JSON.stringify(testData));
+                testResults.push(`✅ 写入测试数据成功`);
+                
+                // 测试读取
+                const readData = JSON.parse(localStorage.getItem('rpiDebugTest'));
+                testResults.push(`✅ 读取测试数据成功: ${JSON.stringify(readData)}`);
+                
+                // 测试删除
+                localStorage.removeItem('rpiDebugTest');
+                testResults.push(`✅ 删除测试数据成功`);
+                
+                results.innerHTML = `<div class="success">${testResults.join('<br>')}</div>`;
+                
+            } catch (error) {
+                results.innerHTML = `<div class="error">❌ 本地存储测试失败: ${error.message}</div>`;
+            }
+        }
+        
+        // 页面加载完成后自动运行基础检查
+        window.onload = function() {
+            setTimeout(() => {
+                checkSystem();
+                checkFiles();
+                checkQuestions();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

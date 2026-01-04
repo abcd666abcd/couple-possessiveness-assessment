@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPI情侣占有欲指数评测 - 测试结果</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="result-page">
+    <div class="container">
+        <div class="result-header">
+            <h1>💖 RPI 测试结果报告</h1>
+            <p>您的情感模式深度分析</p>
+        </div>
+        
+        <div class="overall-score">
+            <h2>总体得分</h2>
+            <div class="score-number" id="overallScore">0</div>
+            <div id="overallPercentage">0%</div>
+        </div>
+        
+        <div class="chart-container">
+            <h3 style="text-align: center; margin-bottom: 30px; color: #e91e63;">四维度雷达图</h3>
+            <div style="height: 400px; position: relative;">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="dimension-results" id="dimensionResults">
+            <!-- 维度详情将通过JavaScript动态生成 -->
+        </div>
+        
+        <div class="improvement-suggestions" id="improvementSuggestions">
+            <!-- 改进建议将通过JavaScript动态生成 -->
+        </div>
+        
+        <div class="result-actions">
+            <button class="btn-primary" id="restartBtn">重新测试</button>
+            <a href="index.html" class="btn-nav" style="margin-left: 15px;">返回首页</a>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPI情侣占有欲指数评测 - 答题页面</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="test-page">
+    <div class="container">
+        <div class="test-header">
+            <h1>RPI 情侣占有欲指数评测</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div id="progressText" data-total="20">0 / 20</div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <!-- 题目内容将通过JavaScript动态生成 -->
+        </div>
+        
+        <div class="navigation">
+            <button class="btn-nav" id="prevBtn">上一题</button>
+            <button class="btn-nav" id="nextBtn">下一题</button>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

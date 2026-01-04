@@ -1,0 +1,97 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "我会希望伴侣每天主动跟我报备行程和接触的人",
+      "dimension": "控制欲望",
+      "type": "正向",
+      "score": 0
+    },
+    {
+      "id": 2,
+      "text": "看到伴侣和异性朋友单独吃饭或聊天，我会感到不舒服",
+      "dimension": "嫉妒强度",
+      "type": "正向",
+      "score": 0
+    },
+    {
+      "id": 3,
+      "text": "如果伴侣超过半天没回我消息，我会频繁翻看手机、胡思乱想",
+      "dimension": "情感依赖",
+      "type": "正向",
+      "score": 0
+    },
+    {
+      "id": 4,
+      "text": "我总是担心伴侣会因为遇到更优秀的人而离开我",
+      "dimension": "关系不安全感",
+      "type": "正向",
+      "score": 0
+    },
+    {
+      "id": 5,
+      "text": "我会下意识地查看伴侣的手机聊天记录或社交动态",
+      "dimension": "控制欲望",
+      "type": "正向",
+      "score": 0
+    }
+  ],
+  "dimensions": {
+    "控制欲望": {
+      "name": "控制欲望",
+      "fullName": "控制欲望维度",
+      "description": "反映您在亲密关系中希望控制和了解伴侣的程度",
+      "questionIds": [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45, 46, 49],
+      "reverseQuestionIds": [25, 29, 33, 46, 49],
+      "weight": 1.0,
+      "maxScore": 65,
+      "scoreRanges": {
+        "low": {"min": 0, "max": 20, "title": "自主型", "desc": "您给予伴侣充分的自由空间，尊重对方的独立性"},
+        "medium": {"min": 21, "max": 40, "title": "平衡型", "desc": "您在亲密关系中追求适度的了解和控制"},
+        "high": {"min": 41, "max": 65, "title": "控制型", "desc": "您在亲密关系中表现出较强的控制欲望"}
+      }
+    },
+    "嫉妒强度": {
+      "name": "嫉妒强度",
+      "fullName": "嫉妒强度维度", 
+      "description": "反映您在亲密关系中面对伴侣与异性接触时的情绪反应强度",
+      "questionIds": [2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 47],
+      "reverseQuestionIds": [26, 30, 34, 47],
+      "weight": 1.0,
+      "maxScore": 60,
+      "scoreRanges": {
+        "low": {"min": 0, "max": 18, "title": "自信型", "desc": "您对自身魅力和关系稳定性很有信心"},
+        "medium": {"min": 19, "max": 36, "title": "正常型", "desc": "您在亲密关系中表现出适度的关注和在乎"},
+        "high": {"min": 37, "max": 60, "title": "敏感型", "desc": "您在亲密关系中表现出较强的嫉妒倾向"}
+      }
+    },
+    "情感依赖": {
+      "name": "情感依赖",
+      "fullName": "情感依赖维度",
+      "description": "反映您在亲密关系中对伴侣的情感依赖程度和独立程度",
+      "questionIds": [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 45],
+      "reverseQuestionIds": [27, 31, 35, 45],
+      "weight": 1.0,
+      "maxScore": 60,
+      "scoreRanges": {
+        "low": {"min": 0, "max": 18, "title": "独立型", "desc": "您在情感上较为独立，能自主处理各种情况"},
+        "medium": {"min": 19, "max": 36, "title": "适中型", "desc": "您在亲密关系中既保持独立又适度依赖"},
+        "high": {"min": 37, "max": 60, "title": "依赖型", "desc": "您在情感上表现出较强的依赖倾向"}
+      }
+    },
+    "关系不安全感": {
+      "name": "关系不安全感",
+      "fullName": "关系不安全感维度",
+      "description": "反映您对亲密关系稳定性和持续性的担忧程度",
+      "questionIds": [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 50],
+      "reverseQuestionIds": [28, 32, 36, 48, 50],
+      "weight": 1.0,
+      "maxScore": 65,
+      "scoreRanges": {
+        "low": {"min": 0, "max": 20, "title": "安全型", "desc": "您对亲密关系充满信心，很少产生担忧"},
+        "medium": {"min": 21, "max": 40, "title": "稳重型", "desc": "您对关系有适度的关注和担心"},
+        "high": {"min": 41, "max": 65, "title": "焦虑型", "desc": "您对亲密关系表现出较强的焦虑和不安全感"}
+      }
+    }
+  }
+}

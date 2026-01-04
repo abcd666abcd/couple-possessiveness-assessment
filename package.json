@@ -1,0 +1,13 @@
+{
+  "name": "rpi-relationship-possessiveness-index",
+  "version": "1.0.0",
+  "description": "RPI情侣占有欲指数评测网站",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "serve": "npx serve ."
+  },
+  "keywords": ["psychology", "relationship", "assessment", "chinese"],
+  "author": "RPI Team",
+  "license": "MIT"
+}
